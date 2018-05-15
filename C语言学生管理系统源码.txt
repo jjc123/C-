@@ -1,0 +1,301 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+typedef struct stu
+{
+    char num[10];      //学生学号
+    char name[20];     //学生姓名
+    int age;           //学生年龄
+    char sex[3];       //学生性别
+    char xibie[20],zhuanye[20],banji[20];   //系别专业班级
+    char add[30];      //学生籍贯
+} ST;
+ST st[1000];      //学生数组
+long i=0;         //定义一个全局变量，用于记录有多少学生
+//录入数据
+void Entry()      //添加学生成员
+{
+    char ch;
+    do
+    {
+        i++;//   i代表学生人数
+        printf("请输入学生的学号\n");
+        scanf("%s",&st[i].num);
+        printf("请输入学生的姓名\n");
+        scanf("%s",st[i].name);
+        printf("请输入学生的性别\n");
+        scanf("%s",st[i].sex);
+        printf("请输入学生的年龄：\n");
+        scanf("%d",&st[i].age);
+        printf("请输入学生的系别\n");
+        scanf("%s",&st[i].xibie);
+        printf("请输入学生的专业：\n");
+        scanf("%s",&st[i].zhuanye);
+        printf("请输入学生的班级：\n");
+        scanf("%s",&st[i].banji);
+        printf("请输入学生的籍贯：\n");
+        scanf("%s",&st[i].add);
+        getchar();
+        printf("-----继续录入请按任意键---退出录入请按N-----\n");
+        scanf("%c",&ch);
+    }while(ch!='N'&&ch!='n'); //判断是否继续的条件
+}
+//查找数据
+void Find()
+{
+    int t,xuehao=0;   //xuehaowei0表示没有找到，1为找到相关学生
+    char ch,x[20];
+    if(i==0)     //如果i=0，则说明没有数据
+    {
+        printf("没有学生：\n");
+    }
+    else do
+        {
+            printf("\t按学号查找：\n");
+            printf("\t请输入学生学号");
+            scanf("%s",&x);
+            getchar();
+            for(t=1; t<=i; t++)
+                if(!strcmp(st[t].num,x))
+                {
+                    //如果和输入的学号相同则输出这个学生的信息
+                    printf("所查学生的学号为：%s\n",st[t].num);
+                    printf("          姓名为：%s\n",st[t].name);
+                    printf("          性别为：%s\n",st[t].sex);
+                    printf("          年龄为：%d\n",st[t].age);
+                    printf("          系别为：%s\n",st[t].xibie);
+                    printf("          专业为：%s\n",st[t].zhuanye);
+                    printf("          班级为：%s\n",st[t].banji);
+                    printf("          籍贯为：%s\n",st[t].add);
+                    xuehao=1;                       //找到一个学生则变1
+                }
+            if(xuehao==0)                  //为0的时候说明没找到
+                printf("该学生不存在!\n");
+       printf("-----继续录入请按任意键---退出录入请按N-----\n");
+        scanf("%c",&ch);
+    }
+    while(ch!='N'&&ch!='n'); //判断是否继续的条件
+}
+void Change()       //修改数据
+{
+    long x;         //n是输入的学号，q是修改后的学号
+    int a,b=0,c,ch,N;
+    char w[20],h[20],T[20],ad[20],q[20],n[20];
+    char E[20],M[20],C[20];       //后面将会对成绩进行修改，E看做系别，M看做专业，C看做班级
+    if(i==0)           //如果i=0，说明没有数据
+    {
+        printf("没有学生成员\n");
+    }
+    else do
+        {
+            printf("请输入你要修改学生的学号：");
+            scanf("%s",&n);
+            for(x=1; x<=i; x++)
+                if(!strcmp(n,st[x].num))
+                {
+                    a=x;                //如果和输入的学号一样，则记下这个学生的序号
+                    b++;               //判断是否有可以修改的学生
+                }
+            if(b==0)
+                printf("没有找到这个学生！\n");
+            else
+            {
+                //根据选项进行修改
+                printf("1:修改学生的学号：\n");
+                printf("2:修改学生的姓名：\n");
+                printf("3:修改学生的性别：\n");
+                printf("4:修改学生的年龄：\n");
+                printf("5:修改学生的系别：\n");
+                printf("6:修改学生的专业：\n");
+                printf("7:修改学生的班级：\n");
+                printf("8:修改学生的籍贯：\n");
+                printf("请输入选项：");
+                scanf("%d",&c);
+                switch(c)
+                {
+                case 1:
+                    printf("该学生学号为：%s\n",st[a].num);
+                    printf("修改为：\n");
+                    scanf("%s",&q);
+                    strcpy(st[a].num,q);
+                    break;
+                case 2:
+                    printf("该学生的姓名为：%s\n",st[a].name);
+                    printf("修改为：\n");
+                    scanf("%s",w);
+                    strcpy(st[a].name,w);
+                    break;
+                case 3:
+                    printf("该学生的性别为：%s\n",st[a].sex);
+                    printf("修改为：\n");
+                    scanf("%s",h);
+                    strcpy(st[a].sex,h);
+                    break;
+                case 4:
+                    printf("该学生的年龄为：%d\n",st[a].age);
+                    printf("修改为：\n");
+                    scanf("%d",&N);
+                    st[a].age=N;
+                    break;
+                case 5:
+                    printf("该学生的系别为：%s\n",st[a].xibie);
+                    printf("修改为：\n");
+                    scanf("%s",&E);
+                    strcpy(st[a].xibie,E);
+                    break;
+                case 6:
+                    printf("该学生的专业为：%s\n",st[a].zhuanye);
+                    printf("修改为：\n");
+                    scanf("%s",&M);
+                    strcpy(st[a].zhuanye,M);
+                    break;
+                case 7:
+                    printf("该学生的班级为：%s\n",st[a].banji);
+                    printf("修改为：\n");
+                    scanf("%s",&C);
+                    strcpy(st[a].banji,C);
+                    break;
+                case 8:
+                    printf("该学生的籍贯为：%s\n",st[a].add);
+                    printf("修改为：\n");
+                    scanf("%s",ad);
+                    strcpy(st[a].add,ad);
+                    break;
+                default :
+                    printf("输入错误！\n");
+                    break;
+                }
+            }
+     printf("-----继续录入请按任意键---退出录入请按N-----\n");
+        getchar();
+        ch=getchar();
+    }
+    while(ch!='N'&&ch!='n'); //判断是否继续的条件
+}
+//删除数据
+void Del()
+{
+    char ch;
+    long t,j,s,q=0;
+    char n[20];
+    do
+    {
+        if(i==0)
+            printf("没有学生数据可以删除！\n");
+        else
+        {
+            printf("请输入要删除学生的学号：");
+            scanf("%s",&n);
+            getchar();
+            for(t=1; t<=i; t++)
+            {
+                if(!strcmp(st[t].num,n))
+                    j=t;          //如果和输入的学号一样，则记下这个学生的序号
+            }
+            printf("您将要删除学生的数据如下：\n");
+            printf("%s %s %s %d %s %s %s %s \n",st[j].num,st[j].name,st[j].sex,st[j].age,st[j].xibie,st[j].zhuanye,st[j].banji,st[j].add);
+            if(j==1)               //如果只有一个学生，则直接删除即可
+            {
+                i--;
+                st[j]=st[0];
+            }
+            else               //如果有多个学生，则从该学生开始，后面学生的数据依次覆盖前面学生的数据
+            {
+                for(s=j+1; s<=i; s++)
+                    st[s-1]=st[s];
+                i--;
+            }
+            printf("数据已删除！\n");
+        }
+     printf("-----继续录入请按任意键---退出录入请按N-----\n");
+     getchar();
+        scanf("%c",&ch);
+    }
+    while(ch!='N'&&ch!='n'); //判断是否继续的条件
+}
+//插入数据
+void Insert()
+{
+    char ch;
+    long t,c,j;
+    do
+    {
+//        根据提示插入数据
+        i++;
+        printf("请输入要插入的学生的数据：");
+        printf("按顺序依次为：学号、姓名、性别、年龄、院系、专业、班级、籍贯：\n");
+        scanf("%s %s %s %d %s %s %s %s",st[i].num,st[i].name,st[i].sex,&st[i].age,st[i].xibie,st[i].zhuanye,st[i].banji,st[i].add);
+        printf("-----继续录入请按任意键---退出录入请按N-----\n");
+        getchar();
+        scanf("%c",&ch);
+//        if(ch=='N'||ch=='n')
+//            return;
+    }while(ch!='N'&&ch!='n'); //判断是否继续的条件
+}
+//浏览数据
+void Show()
+{
+    long d;
+    if(i==0)
+        printf("没有数据，请先输入数据：\n");
+    else
+    {
+        printf("打印顺序为：学号、姓名、性别、年龄、系别、专业、班级、籍贯：\n");
+        for(d=1; d<=i; d++)
+            printf("%s\t%s\t%s\t%d\t%s\t%s\t%s\t%s\n",st[d].num,st[d].name,st[d].sex,st[d].age,st[d].xibie,st[d].zhuanye,st[d].banji,st[d].add);
+    }
+}
+//主函数
+int main()
+{
+    int w;
+    printf("您所使用的是南阳理工学院--------------------------\n");
+    printf("---------------计算机与信息工程学院\n");
+    printf("++++++++++++学籍管理系统++++++++++++++++++++++++++\n");
+    printf("\n");
+    printf("--------------------欢迎您使用学籍管理系统---------------------\n");
+    printf("\n");
+    printf("++++++++++++++++++++为了能有效保存您的数据，请根据提示操作++++++++\n");
+    printf("--------------------------------------------------------------------------------\n");
+    do
+    {
+        printf("\t\t********************************【主菜单】*\n");
+        printf("\t\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~+[1]:录入数据：\n");
+        printf("\t\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~+[2]:修改数据：\n");
+        printf("\t\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~+[3]:查找数据：\n");
+        printf("\t\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~+[4]:删除数据：\n");
+        printf("\t\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~+[5]:插入数据：\n");
+        printf("\t\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~+[6]:浏览数据：\n");
+        printf("\t\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~+[0]:退出系统：\n");
+        printf("请输入选项：");
+        scanf("%d",&w);
+        switch(w)
+        {
+        case 1:
+            Entry();
+            break;
+        case 2:
+            Change();
+            break;
+        case 3:
+            Find();
+            break;
+        case 4:
+            Del();
+            break;
+        case 5:
+            Insert();
+            break;
+        case 6:
+            Show();
+            break;
+        case 0:
+            break;
+        default:
+            printf("输入错误！\n");
+            break;
+        }
+    }
+    while(w!=0);
+    return 0;
+}
