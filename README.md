@@ -2,4 +2,4 @@
 
 大一的时候用C语言做的一个学生管理系统 有点简陋 是命令框的 但做这个项目的过程中 我还是学到了很多知识 也进步了很多 知道了原来是这样子实现一个小玩意 
 
-
+![界面](https://github.com/jjc123/C-/blob/master/image/image.png?raw=true)
